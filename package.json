@@ -2,7 +2,12 @@
   "name": "pruebas-e2e-playwright",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test:e2e": "npx playwright test",
+    "test:e2e:local": "npx playwright test --project=\"Web Angular (Local)\"",
+    "test:e2e:prod": "npx playwright test --project=\"Web Angular (Producción)\"",
+    "show:report": "npx playwright show-report"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

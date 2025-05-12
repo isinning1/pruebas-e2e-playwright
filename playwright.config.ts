@@ -22,13 +22,15 @@ export default defineConfig({
       },
     },
 
-    {
-      name: 'Mobile Ionic (Local)',
-      use: {
-        baseURL: 'http://localhost:8100',
-        ...devices['iPhone 12'],
-      },
-    },
+  
+  //  {
+  //    name: 'Mobile Ionic (Local)',
+  //    use: {
+  //      baseURL: 'http://localhost:8100',
+  //      ...devices['iPhone 12'],
+  //    },
+  //  },
+    
 
     {
       name: 'Web Angular (Producción)',

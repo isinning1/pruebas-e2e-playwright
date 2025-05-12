@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+      "target": "ESNext",
+      "module": "CommonJS",
+      "moduleResolution": "node",
+      "strict": true,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "types": ["@playwright/test"],
+      "resolveJsonModule": true,
+      "outDir": "dist"
+    },
+    "include": ["tests/**/*.ts"]
+  }
