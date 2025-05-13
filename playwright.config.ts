@@ -8,50 +8,55 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    trace: 'on',
+    screenshot: 'on',
+    video: 'on',
   },
 
   projects: [
+    // Web Angular (Local)
     {
       name: 'Web Angular (Local)',
+      testMatch: /.*tests\/tests\/.*\.spec\.ts/,
       use: {
         baseURL: 'http://localhost:4200',
         ...devices['Desktop Chrome'],
       },
     },
 
-  
-  //  {
-  //    name: 'Mobile Ionic (Local)',
-  //    use: {
-  //      baseURL: 'http://localhost:8100',
-  //      ...devices['iPhone 12'],
-  //    },
-  //  },
-    
-
+    // Web Angular (Producción)
     {
       name: 'Web Angular (Producción)',
+      testMatch: /.*tests\/tests\/.*\.spec\.ts/,
       use: {
         baseURL: 'https://main.d2sk28qnzn31cz.amplifyapp.com',
         ...devices['Desktop Chrome'],
       },
     },
 
-    // (Opcional futuro): Mobile en producción (si se hace un deploy móvil tipo PWA)
+    // 📱 Mobile Ionic (Local)
+    {
+      name: 'Mobile Ionic (Local)',
+      testMatch: /.*tests\/mobile\/.*\.spec\.ts/,
+      use: {
+        baseURL: 'http://localhost:8100',
+        ...devices['iPhone 12'],
+      },
+    },
+
+    // Mobile Ionic (Producción) (comentado por ahora)
     // {
     //   name: 'Mobile Ionic (Producción)',
+    //   testMatch: /.*tests\/mobile\/.*\.spec\.ts/,
     //   use: {
-    //     baseURL: 'https://app.misitio.com',
+    //     baseURL: 'https://app.misitio.com', // Reemplaza si haces deploy móvil (PWA)
     //     ...devices['iPhone 12'],
     //   },
     // },
   ],
 
   /**
-   * Si se desea levantar los servidores automáticamente antes de probar, descomente esto:
+   * Si deseas levantar servidores automáticamente antes de correr pruebas, descomenta esto:
    */
   // webServer: [
   //   {
@@ -63,7 +68,6 @@ export default defineConfig({
   //     command: 'ionic serve',
   //     url: 'http://localhost:8100',
   //     reuseExistingServer: !process.env.CI,
-  //   }
-  // ]
-
+  //   },
+  // ],
 });

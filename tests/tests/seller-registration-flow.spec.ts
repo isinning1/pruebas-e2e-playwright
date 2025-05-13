@@ -33,5 +33,5 @@ test('Complete seller registration and login to seller dashboard', async ({ page
   await page.getByLabel('Enter your password').fill(seller.password);
   await page.getByRole('button', { name: 'Login' }).click();
 
-  await expect(page).toHaveURL(/.*seller-dashboard.*/);
+  await expect(page).toHaveURL('seller-dashboard');
 });

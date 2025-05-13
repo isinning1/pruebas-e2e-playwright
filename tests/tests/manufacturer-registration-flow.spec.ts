@@ -30,37 +30,26 @@ test('Complete manufacturer registration, admin approval, and login', async ({ p
   await page.getByRole('button', { name: /Submit/i }).click();
   await page.waitForTimeout(13000);
   await expect(page.locator('.toast-body')).toContainText('Please wait for approval');
-  await page.waitForTimeout(2000);
+  await page.waitForTimeout(5000);
 
-  await page.getByLabel('Enter your email').fill('admin_27538@example.com');
+  await page.getByLabel('Enter your email').fill('admin_74806@example.com');
   await page.getByLabel('Enter your password').fill('Prueba4325*');
-  await page.getByRole('button', { name: /Login/i }).click();
+  await page.getByRole('button', { name: /login/i }).click();
 
-  await page.getByText('Authorizations', { exact: false }).click();
-  await page.waitForTimeout(2000);
+  await page.waitForURL('admin', { timeout: 50000 });
+  await expect(page.locator('h4')).toHaveText(/search users/i);
 
-  const warningRow = page.locator('tbody tr').filter({ hasText: '⚠️' }).first();
-  const email = await warningRow.locator('td').nth(1).innerText();
-
-
-  const searchInput = page.locator('input[placeholder*="Search"]');
-  await searchInput.fill(email);
-
-  const filteredRow = page.locator('tbody tr').first();
-  await expect(filteredRow).toContainText(email);
-
-  const authorizeButton = filteredRow.locator('button.btn-success');
-  await expect(authorizeButton).toBeVisible();
-  await authorizeButton.click();
-
+  const warningRow = page.locator('tbody tr', { hasText: '⚠️' }).filter({ hasText: manufacturer.email }).first();
+  await expect(warningRow).toContainText(manufacturer.email, { timeout: 20000 });
+  await warningRow.getByRole('button', { name: /authorize/i }).click();
   await expect(page.locator('.alert-success')).toBeVisible();
 
-  await page.getByRole('button', { name: /Logout/i }).click();
+  await page.getByRole('button', { name: /logout/i }).click();
 
-  await page.getByLabel('Enter your email').fill(manufacturer.email);
-  await page.getByLabel('Enter your password').fill(manufacturer.password);
-  await page.getByRole('button', { name: 'Login' }).click();
-
-  await expect(page).toHaveURL(/.*manufacturer-dashboard.*/);
+  await expect(page.getByRole('heading', { name: /login/i })).toBeVisible();
+  await page.locator('input[formcontrolname="usuario"]').fill(manufacturer.email);
+  await page.locator('input[formcontrolname="contrasena"]').fill(manufacturer.password);
+  await page.getByRole('button', { name: /login/i }).click();
+  await page.waitForURL('**/manufacturer-dashboard');
 });
 

@@ -77,7 +77,7 @@ test('Seller full flow: register, create, edit and view sales plan', async ({ pa
   await page.getByLabel('Enter your email').fill(seller.email);
   await page.getByLabel('Enter your password').fill(seller.password);
   await page.getByRole('button', { name: 'Login' }).click();
-  await page.waitForURL(/.*seller-dashboard.*/, { timeout: 10000 });
+  await page.waitForURL(/seller-dashboard/, { timeout: 10000 });
 
   await page.getByRole('button', { name: /Create Sales Plan/i }).click();
   await page.getByLabel('Sales Plan Name *').fill(salesPlan.name);
@@ -90,7 +90,7 @@ test('Seller full flow: register, create, edit and view sales plan', async ({ pa
   await page.getByLabel('Start Time').fill(salesPlan.startTime);
   await page.getByLabel('End Time').fill(salesPlan.endTime);
   await page.getByRole('button', { name: 'Save' }).click();
-  await page.waitForURL(/.*seller-dashboard.*/, { timeout: 12000 });
+  await page.waitForURL(/seller-dashboard/, { timeout: 12000 });
 
   await expect(page.locator('text=' + salesPlan.name)).toBeVisible({ timeout: 12000 });
   await page.getByRole('button', { name: /View details/i }).click();
@@ -121,6 +121,7 @@ test('Seller full flow: register, create, edit and view sales plan', async ({ pa
 
   await expect(page).toHaveURL('/seller-dashboard');
 
+  await expect(page.getByRole('button', { name: /logout/i })).toBeVisible({ timeout: 20000 });
   await page.getByRole('button', { name: /logout/i }).click();
 });
 
