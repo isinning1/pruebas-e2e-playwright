@@ -34,7 +34,7 @@ export default defineConfig({
       },
     },
 
-    // 📱 Mobile Ionic (Local)
+    // Mobile Ionic (Local)
     {
       name: 'Mobile Ionic (Local)',
       testMatch: /.*tests\/mobile\/.*\.spec\.ts/,
