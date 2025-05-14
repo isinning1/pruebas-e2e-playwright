@@ -41,7 +41,41 @@ ng run app:serve --host=localhost --port=8100
 # Ejecución de Pruebas 
 Con los servidores levantados, desde la raíz de este repositorio:
 ```bash
+npm install
 npx playwright test
+```
+# Ejecutar una prueba específica:
+```bash
+npx playwright test tests/seller-sales-plan-full-flow.spec.ts --project="Web Angular (Local)"
+```
+```bash
+npx playwright test tests/seller-sales-plan-full-flow.spec.ts --project="Web Angular (Producción)"
+```
+```bash
+npx playwright test mobile/client-full-order-flow.spec.ts --project="Mobile Ionic (Local)"
+```
+
+# Ejecutar pruebas visualizando navegador (modo headed):
+```bash
+npx playwright test tests/seller-sales-plan-full-flow.spec.ts --project="Web Angular (Local)" --headed
+```
+ 
+# Selección de Proyecto (Target) específico
+Cada prueba puede especificar un entorno de ejecución definido en el archivo playwright.config.ts. Los proyectos comunes son:
+| Proyecto             | Comando                            |
+| -------------------- | ---------------------------------- |
+| Web Angular (Local)  | `--project="Web Angular (Local)"`  |
+| Mobile Ionic (Local) | `--project="Mobile Ionic (Local)"` |
+
+```bash
+npx playwright test --project="Web Angular (Local)"
+```
+```bash
+npx playwright test --project="Web Angular (Producción)"
+```
+
+```bash
+npx playwright test --project="Mobile Ionic (Local)"
 ```
 
 # Ver reporte de resultados
